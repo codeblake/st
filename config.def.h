@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-static int borderpx = 2;
+static char *font = "Hack:pixelsize=12:antialias=true:autohint=true";
+static int borderpx = 1;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -27,7 +27,7 @@ char *vtiden = "\033[?6c";
 
 /* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
-static float chscale = 1.0;
+static float chscale = 1.2; /* line height */
 
 /*
  * word delimiter string
@@ -106,12 +106,12 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.8;
+float alpha = .95;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	[0] = "#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
+	[0] = "#1d2021", /* hard contrast: #1d2021 / medium contrast: #282828 / soft contrast: #32302f */
 	[1] = "#cc241d", /* red     */
 	[2] = "#98971a", /* green   */
 	[3] = "#d79921", /* yellow  */
@@ -197,7 +197,7 @@ static MouseShortcut mshortcuts[] = {
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
@@ -206,9 +206,9 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ MODKEY,               XK_equal,       zoom,           {.f = +1} },
+	{ MODKEY,               XK_minus,       zoom,           {.f = -1} },
+	{ MODKEY,               XK_0,           zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
